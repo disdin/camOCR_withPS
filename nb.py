@@ -137,8 +137,8 @@ connection_url = "mongodb+srv://pilpiddu:s1FiE3EP6NYJXKP4@cluster0.khyvpbl.mongo
 client = pymongo.MongoClient(connection_url) 
 
 database=client["OCR"] #Connecting to existing Sales database or creating a new Sales database
-collection=database["Records"] #connecting to the product collection in the Sales database
-
+collection=database["records"] #connecting to the product collection in the Sales database
+collection.drop()
 import csv
 with open("records.csv","r") as file:
     reader = csv.DictReader(file)
