@@ -32,7 +32,7 @@ export default function TableOCR() {
   const [rows, setrows] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.post('http://localhost:5000/getRecords', {});
+      const res = await axios.post('https://ocr-frontend-ps.onrender.com/getRecords', {});
       console.log(res.data);
       setrows(res.data);
     }
