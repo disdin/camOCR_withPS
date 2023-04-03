@@ -8,7 +8,7 @@ const Dashboard = () => {
     useEffect( () => {
       const fetchData = async ()=>{
         const res = await axios.post('http://localhost:5000/getRecords',{});
-        console.log("hhohin66",res.data);
+        console.log(res.data);
         setData(res.data);
       }   
       fetchData();

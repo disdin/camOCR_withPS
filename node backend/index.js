@@ -13,7 +13,7 @@ import cluster from "cluster";
 import os from "os";
 import cors from 'cors';
 import path from 'path'
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 const numCpu = os.cpus().length;
@@ -23,7 +23,7 @@ app.use(cors());
 
 // limiting concurrent requests
 const limiter = rateLimit({
-  windowMs: 5 * 1000, 
+  windowMs: 5 * 1000,
   max: 25, // Limit each IP to 25 requests per `window`
   message: {
     code: 429,
@@ -51,26 +51,26 @@ app.use(helmet());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, './client/build')))
-app.get('/',(req,res)=>{
-  res.sendFile(path.join(__dirname,'./client/build/index.html'))
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'))
 })
 app.use('/', router);
 
 // using multiple CPU cores to boost speed
-if (cluster.isMaster) {
-  for (let i = 0; i < numCpu; i++) {
-    cluster.fork();
-  }
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`worker ${worker.process.pid} died`);
-    cluster.fork();
-  })
-}
-else {
-  app.listen(port, () => {
-    console.log(`>> Server ${process.pid} started successfully at port ${port}`);
-  });
-}
+// if (cluster.isMaster) {
+//   for (let i = 0; i < numCpu; i++) {
+//     cluster.fork();
+//   }
+//   cluster.on('exit', (worker, code, signal) => {
+//     console.log(`worker ${worker.process.pid} died`);
+//     cluster.fork();
+//   })
+// }
+// else {
+app.listen(port, () => {
+  console.log(`>> Server ${process.pid} started successfully at port ${port}`);
+});
+// }
 
 
 

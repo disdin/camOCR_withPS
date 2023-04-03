@@ -8,7 +8,7 @@ export default function getRecords(req, res) {
     Records.find({}, function (err, foundRecords) {
         console.log(foundRecords)
         if (!err) {            
-            res.send(JSON.stringify(foundRecords))
+            res.send(JSON.stringify(foundRecords.reverse()))
         }
         else {
             res.status(400).send("notfound in getRecords");
